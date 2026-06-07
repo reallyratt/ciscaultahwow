@@ -87,6 +87,14 @@ const DEFAULT_PRESET_PHOTOS: PhotoCapture[] = [
   }
 ];
 
+const getFrameName = (frameId?: string): string => {
+  if (!frameId) return 'Preset 1';
+  if (frameId === 'polaroid') return 'Preset 1';
+  if (frameId === 'neon-glow') return 'Preset 2';
+  if (frameId === 'photobooth-strip') return 'Preset 3';
+  return frameId;
+};
+
 export default function GalleryApp({ onBack }: GalleryAppProps) {
   const [photos, setPhotos] = useState<PhotoCapture[]>([]);
   const [isMultiSelectMode, setIsMultiSelectMode] = useState<boolean>(false);
@@ -306,7 +314,7 @@ export default function GalleryApp({ onBack }: GalleryAppProps) {
                   <div className="pt-2 pb-0.5 px-1 flex justify-between items-center text-[9.5px] font-mono text-[#5a5a40]/60 font-bold">
                     <span>{photo.timestamp}</span>
                     <span className="capitalize text-[8.5px] bg-[#5a5a40]/8 px-1.5 py-0.2 rounded text-[#5a5a40]">
-                      {photo.frameId || 'photo'}
+                      {getFrameName(photo.frameId)}
                     </span>
                   </div>
                 </div>
@@ -440,11 +448,6 @@ export default function GalleryApp({ onBack }: GalleryAppProps) {
                       alt="Polaroid Keepsake Core"
                       className="w-full aspect-square object-cover rounded-lg pointer-events-none select-none"
                     />
-                    <div className="w-full pt-3 pb-1 text-center">
-                      <span className="font-mono text-[9px] text-[#5a5a40] uppercase tracking-widest block font-bold leading-none">
-                        🌱 OUR MEMORY LANE • {photos[currentPhotoIndex].timestamp}
-                      </span>
-                    </div>
                   </motion.div>
                 )}
               </div>

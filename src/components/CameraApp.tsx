@@ -380,10 +380,6 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       }
 
       setIsCapturing(false);
-      setShowSavedToast(true);
-      setTimeout(() => {
-        setShowSavedToast(false);
-      }, 2000);
     };
 
     frameImg.onload = () => {
@@ -418,28 +414,7 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       {/* Invisible Canvas for rendering full image */}
       <canvas ref={canvasRef} className="hidden" />
 
-      {/* Save Notification Toast */}
-      <AnimatePresence>
-        {showSavedToast && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            className="absolute top-16 left-4 right-4 bg-[#4a4a40] text-[#f8f5f0] px-3.5 py-3 rounded-2xl shadow-lg flex items-center justify-between gap-3 z-50 border border-[#5a5a40]/20"
-          >
-            <div className="flex items-center gap-2.5">
-              <span className="text-base">📸</span>
-              <div className="text-left">
-                <p className="text-[11px] font-extrabold leading-tight tracking-tight">Keepsake Saved!</p>
-                <p className="text-[9.5px] text-[#faf8f5]/80 font-medium">Added to your Gallery app.</p>
-              </div>
-            </div>
-            <span className="text-[10px] uppercase font-bold tracking-wider bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-md">
-              Saved
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* App Header */}
       <div className="h-14 bg-[#f8f5f0] border-b border-[#e0dad0] flex items-center justify-between px-3 text-[#4a4a40]">
