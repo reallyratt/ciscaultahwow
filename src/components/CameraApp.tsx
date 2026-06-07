@@ -113,18 +113,13 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       // Use ideal resolution parameters for flawless mobile device browser loading
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: { 
-          facingMode: { ideal: 'user' },
+          facingMode: 'user',
           width: { ideal: 640 },
           height: { ideal: 640 }
         },
         audio: false
       });
       setStream(mediaStream);
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
-        // Kickoff video stream playing instantly
-        videoRef.current.play().catch(e => console.log('Video autoplay play block:', e));
-      }
       setCameraActive(true);
     } catch (err: any) {
       console.warn('Camera access failed, using premium avatar snapshot mode:', err);
@@ -142,6 +137,19 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       }
     };
   }, []);
+
+  // Reactively bind stream to video element once mounted in DOM
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (videoElement && stream) {
+      if (videoElement.srcObject !== stream) {
+        videoElement.srcObject = stream;
+      }
+      videoElement.play().catch(e => {
+        console.warn('AutoPlay play attempt interrupted:', e);
+      });
+    }
+  }, [stream, cameraActive]);
 
   const playShutterSound = () => {
     try {

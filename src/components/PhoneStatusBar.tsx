@@ -434,8 +434,8 @@ export default function PhoneStatusBar({ activeView }: PhoneStatusBarProps) {
                 <div className="space-y-1.5">
                   <h3 className="font-serif font-bold text-base tracking-tight text-zinc-900">
                     {activePopup === 'settings' && 'System Controls'}
-                    {activePopup === 'dnd-off' && 'DND Disabled ❤️'}
-                    {activePopup === 'dnd-on' && 'DND Enabled 🌙'}
+                    {activePopup === 'dnd-off' && 'DND Disabled'}
+                    {activePopup === 'dnd-on' && 'DND Enabled'}
                   </h3>
                   <p className="text-[11.5px] leading-relaxed text-zinc-650 font-medium px-0.5">
                     {activePopup === 'settings' && 'Ini gaperlu di setting, Cay udah nurut kok! (kadang)'}
