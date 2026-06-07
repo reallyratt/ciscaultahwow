@@ -128,7 +128,7 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
         {/* Notes button */}
         <motion.button
           whileTap={{ scale: 0.95 }}
-          onClick={onOpenAllApps}
+          onClick={() => onLaunchApp('notes')}
           className="w-11 h-11 bg-white hover:bg-zinc-50 rounded-2xl flex items-center justify-center shadow-sm border border-zinc-200 cursor-pointer"
           title="Notes"
         >

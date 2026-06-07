@@ -14,6 +14,7 @@ import PhoneHome from './components/PhoneHome';
 import CameraApp from './components/CameraApp';
 import GoogleSearchApp from './components/GoogleSearchApp';
 import AllAppsModal from './components/AllAppsModal';
+import NotesApp from './components/NotesApp';
 
 export default function App() {
   const [activeView, setActiveView] = useState<AppView>('home');
@@ -115,6 +116,19 @@ export default function App() {
                 className="absolute inset-0"
               >
                 <GoogleSearchApp onBack={() => setActiveView('home')} />
+              </motion.div>
+            )}
+
+            {activeView === 'notes' && (
+              <motion.div
+                key="notes-app"
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+                className="absolute inset-0"
+              >
+                <NotesApp onBack={() => setActiveView('home')} />
               </motion.div>
             )}
 

@@ -80,8 +80,8 @@ export default function AllAppsModal({ isOpen, onClose }: AllAppsModalProps) {
               </div>
 
               <div className="space-y-1">
-                <h3 className="font-serif-romantic italic font-bold text-lg leading-snug text-zinc-900">
-                  Aye! It's not a real phone!
+                <h3 className="font-serif font-bold text-[#4a4a40] text-sm leading-snug">
+                  What else do u need, my love? Kan udah ada Cay...
                 </h3>
                 <p className="text-xs text-zinc-650 font-medium">
                   Constructed exclusively with <span className="text-sky-500 font-bold">Cay & Cey Love Core</span>.

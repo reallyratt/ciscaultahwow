@@ -124,10 +124,11 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
             <div className="flex justify-between items-center h-10 w-full">
               <button 
                 onClick={onBack}
-                className="p-2 hover:bg-[#5a5a40]/5 rounded-full transition-colors"
+                className="p-2 border border-[#e0dad0] hover:bg-[#5a5a40]/5 rounded-full text-[#5a5a40] hover:text-[#4a4a40] flex items-center justify-center flex-shrink-0 transition-colors"
                 id="back-home-search"
+                title="Go back"
               >
-                <ArrowLeft className="w-5 h-5 text-[#5a5a40] hover:text-[#4a4a40]" />
+                <ArrowLeft className="w-4 h-4" />
               </button>
               
               {/* Profile/Account Button */}
@@ -537,25 +538,74 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                     <Music className="w-3 h-3 text-zinc-500" />
                     arcayve.net
                   </h3>
-                  <h2 className="text-sm font-bold text-zinc-850 font-serif-romantic italic pt-0.5">
+                  <h2 className="text-sm font-bold text-zinc-850 font-serif font-bold pt-0.5">
                     Legend... Wait for it... Dary! Playlist!
                   </h2>
                 </div>
 
                 {/* REAL SPOTIFY IFRAME PLAYER EMBED */}
-                <div className="w-full overflow-hidden rounded-xl border border-[#e0dad0] shadow-xs">
+                <div className="w-full overflow-hidden rounded-xl border border-[#e0dad0] shadow-xs mb-4">
                   <iframe 
-                    src="https://open.spotify.com/embed/track/4by3699vGJb767uV7X269y" 
+                    data-testid="embed-iframe" 
+                    style={{ borderRadius: "12px" }} 
+                    src="https://open.spotify.com/embed/playlist/5rAdyLNPLJYFDEuwJeHehM?utm_source=generator&theme=0" 
                     width="100%" 
-                    height="80" 
+                    height="352" 
                     frameBorder="0" 
-                    allowFullScreen={false} 
+                    allowFullScreen 
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                     loading="lazy"
                     title="Spotify love track player embed"
-                    referrerPolicy="no-referrer"
                     className="bg-transparent"
                   />
+                </div>
+
+                {/* TRACKS LIST DESCRIPTIONS */}
+                <div className="pt-4 border-t border-[#e0dad0]/60 space-y-4 text-[#5a5a40]">
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-extrabold tracking-wider text-sky-500 block">
+                      Track 01
+                    </span>
+                    <p className="text-[11.5px] leading-relaxed select-text font-medium text-[#4a4a40]">
+                      This is how desperate I am for love. Looking for somebody to save me.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-extrabold tracking-wider text-sky-500 block">
+                      Track 02 & 03
+                    </span>
+                    <p className="text-[11.5px] leading-relaxed select-text font-medium text-[#4a4a40]">
+                      This is the first time we met. What a decent company.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-extrabold tracking-wider text-sky-500 block">
+                      Track 04 - 07
+                    </span>
+                    <p className="text-[11.5px] leading-relaxed select-[#4a4a40] font-medium text-[#4a4a40]">
+                      Then my love for u started to grow. It's getting bigger each and every single time I look at you.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-extrabold tracking-wider text-sky-500 block">
+                      Track 08 - 10
+                    </span>
+                    <p className="text-[11.5px] leading-relaxed select-text font-medium text-[#4a4a40]">
+                      The Climax of my love. I wanna be yours so bad.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <span className="text-[10px] uppercase font-extrabold tracking-wider text-sky-500 block">
+                      Track 11 - 21
+                    </span>
+                    <p className="text-[11.5px] leading-relaxed select-text font-medium text-[#4a4a40]">
+                      The journey of our love. This every admiration, every single things I feel about you is within this playlist.
+                    </p>
+                  </div>
                 </div>
               </motion.div>
                     </>

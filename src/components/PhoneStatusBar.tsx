@@ -353,7 +353,7 @@ export default function PhoneStatusBar({ activeView }: PhoneStatusBarProps) {
                     </span>
                   </div>
                   <span className="text-[9px] font-bold font-mono text-zinc-450">
-                    Just now
+                    00.00 AM
                   </span>
                 </div>
 

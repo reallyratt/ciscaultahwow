@@ -18,21 +18,21 @@ interface CameraAppProps {
 const FRAMES: RomanticFrame[] = [
   {
     id: 'polaroid',
-    name: 'Classic Polaroid 📸',
+    name: 'Preset 1',
     color: 'bg-white',
     className: '',
     emoji: '💝'
   },
   {
     id: 'neon-glow',
-    name: 'Cyber Hearts 💖',
+    name: 'Preset 2',
     color: 'bg-neutral-900',
     className: '',
     emoji: '⚡'
   },
   {
     id: 'photobooth-strip',
-    name: 'Love Ribbon 🎀',
+    name: 'Preset 3',
     color: 'bg-rose-50',
     className: '',
     emoji: '🌹'
@@ -47,7 +47,7 @@ const getOverlayUrl = (frameId: string, text: string) => {
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' width='500' height='500'>
         <rect x='0' y='0' width='500' height='500' fill='none' stroke='#ffffff' stroke-width='32'/>
         <rect x='0' y='410' width='500' height='90' fill='#ffffff'/>
-        <text x='250' y='458' font-family='Georgia, serif' font-weight='900' font-size='22' fill='#333333' text-anchor='middle'>${escapedText || 'OUR KEEPSAKE'}</text>
+        <text x='250' y='458' font-family='Georgia, serif' font-weight='900' font-size='22' fill='#333333' text-anchor='middle'>${escapedText || 'An Eternity Moment'}</text>
         <text x='440' y='465' font-family='sans-serif' font-size='22'>💖</text>
       </svg>
     `;
@@ -72,7 +72,7 @@ const getOverlayUrl = (frameId: string, text: string) => {
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' width='500' height='500'>
         <rect x='10' y='10' width='480' height='480' rx='16' ry='16' fill='none' stroke='#ffe4e6' stroke-width='16'/>
         <rect x='24' y='24' width='452' height='452' rx='8' ry='8' fill='none' stroke='#f43f5e' stroke-width='4' stroke-dasharray='10,6'/>
-        <text x='250' y='465' font-family='Georgia, serif' font-style='italic' font-weight='bold' font-size='18' fill='#e11d48' text-anchor='middle'>★ ${escapedText || 'Cay &amp; Cey Forever'} ★</text>
+        <text x='250' y='465' font-family='Georgia, serif' font-style='italic' font-weight='bold' font-size='18' fill='#e11d48' text-anchor='middle'>★ ${escapedText || 'An Eternity Moment'} ★</text>
         <text x='48' y='65' font-family='sans-serif' font-size='34' text-anchor='middle'>🌹</text>
         <text x='452' y='65' font-family='sans-serif' font-size='34' text-anchor='middle'>🎀</text>
         <text x='48' y='460' font-family='sans-serif' font-size='26' text-anchor='middle'>🧸</text>
@@ -100,7 +100,7 @@ export default function CameraApp({ onBack }: CameraAppProps) {
   
   // Coupling/sticker customization for simulation backup
   const [coupleStyle, setCoupleStyle] = useState<'hug' | 'pose' | 'sparkle'>('sparkle');
-  const [customText, setCustomText] = useState<string>('Cay ♥ Cey Forever');
+  const [customText, setCustomText] = useState<string>('An Eternity Moment');
   const [stickerEmoji, setStickerEmoji] = useState<'💕' | '✨' | '🔥' | '🐱' | '🐶'>('💕');
 
   // Launch camera
@@ -359,15 +359,15 @@ export default function CameraApp({ onBack }: CameraAppProps) {
 
       {/* App Header */}
       <div className="h-14 bg-[#f8f5f0] border-b border-[#e0dad0] flex items-center justify-between px-3 text-[#4a4a40]">
-        <button 
+        <button
           onClick={onBack}
-          className="p-2 hover:bg-[#5a5a40]/5 rounded-full transition-colors flex items-center justify-center"
+          className="p-2 border border-[#e0dad0] hover:bg-[#5a5a40]/5 rounded-full text-[#5a5a40] hover:text-[#4a4a40] flex items-center justify-center flex-shrink-0 transition-colors"
+          title="Go back"
         >
-          <ArrowLeft className="w-5 h-5 text-[#5a5a40]" />
+          <ArrowLeft className="w-4 h-4" />
         </button>
-        <span className="font-serif-romantic italic font-bold text-sm tracking-tight flex items-center gap-1.5 text-[#ff85a1]">
-          <Sparkles className="w-4 h-4 text-[#ff85a1] animate-spin" />
-          LoveBox Photobox
+        <span className="font-serif font-bold text-sm tracking-tight text-[#4a4a40]">
+          Unique Camera
         </span>
         <div className="w-9 h-9" /> {/* Spacer */}
       </div>
@@ -395,10 +395,10 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                 />
               ) : (
                 /* BACKUP SIMULATION AVATAR DISPLAY */
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#ffefef] to-[#faf8f5] text-[#4a4a40] overflow-hidden text-center">
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-gradient-to-br from-[#f8f5f0] to-[#faf8f5] text-[#4a4a40] overflow-hidden text-center justify-between py-6">
                   <div className="absolute inset-0 opacity-15 overflow-hidden">
                     <div className="absolute top-2 left-6 w-16 h-16 bg-white rounded-full blur-xl" />
-                    <div className="absolute bottom-10 right-4 w-20 h-20 bg-[#ff85a1]/10 rounded-full blur-xl animate-pulse" />
+                    <div className="absolute bottom-10 right-4 w-20 h-20 bg-[#38bdf8]/10 rounded-full blur-xl animate-pulse" />
                   </div>
                   
                   {/* Nice illustrative silhouettes */}
@@ -414,33 +414,33 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                     {/* Love core connecting line */}
                     <div className="flex flex-col items-center pb-4 flex-1">
                       <span className="text-xl animate-bounce">🌱</span>
-                      <div className="w-full h-0.5 border-t border-dashed border-[#ff85a1]" />
+                      <div className="w-full h-0.5 border-t border-dashed border-[#e0dad0]" />
                     </div>
 
                     {/* Cey */}
                     <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl shadow-md border border-[#ff85a1]/25">
+                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl shadow-md border border-[#e0dad0]">
                         👩‍🎨
                       </div>
-                      <span className="text-[10px] bg-[#ff85a1]/10 px-1.5 py-0.5 rounded mt-1 font-bold text-[#ff85a1]">Cey</span>
+                      <span className="text-[10px] bg-[#e0dad0]/40 px-1.5 py-0.5 rounded mt-1 font-bold text-[#5a5a40]">Cey</span>
                     </div>
                   </div>
 
-                  <p className="text-[11px] text-[#5a5a40] font-semibold mt-4 line-clamp-2 max-w-[240px] px-2 leading-relaxed">
-                    Camera loading. Enjoy our natural <strong className="text-[#ff85a1] font-bold">Selfie Simulator</strong>! Let's take a cute keepsake portrait.
+                  <p className="text-[11px] text-[#5a5a40] font-semibold line-clamp-2 max-w-[240px] px-2 leading-relaxed mt-2">
+                    Camera loading. Enjoy our natural <strong className="text-[#38bdf8] font-bold">Selfie Simulator</strong>! Let's take a cute keepsake portrait.
                   </p>
 
                   {/* Quick style controls for mock couple portrait */}
-                  <div className="mt-4 flex gap-1.5 justify-center z-20">
+                  <div className="flex gap-1.5 justify-center z-20 mt-2">
                     <button 
                       onClick={() => setCoupleStyle('sparkle')}
-                      className={`text-[10px] px-2.5 py-1 rounded-full border font-bold transition-all ${coupleStyle === 'sparkle' ? 'bg-[#ff85a1] border-[#ff85a1] text-white shadow-xs' : 'bg-white border-[#e0dad0] text-[#5a5a40]'}`}
+                      className={`text-[10px] px-2.5 py-1 rounded-full border font-bold transition-all ${coupleStyle === 'sparkle' ? 'bg-[#4a4a40] border-[#4a4a40] text-white shadow-xs' : 'bg-white border-[#e0dad0] text-[#5a5a40]'}`}
                     >
                       Sparkles ✨
                     </button>
                     <button 
                       onClick={() => setCoupleStyle('hug')}
-                      className={`text-[10px] px-2.5 py-1 rounded-full border font-bold transition-all ${coupleStyle === 'hug' ? 'bg-[#ff85a1] border-[#ff85a1] text-white shadow-xs' : 'bg-white border-[#e0dad0] text-[#5a5a40]'}`}
+                      className={`text-[10px] px-2.5 py-1 rounded-full border font-bold transition-all ${coupleStyle === 'hug' ? 'bg-[#4a4a40] border-[#4a4a40] text-white shadow-xs' : 'bg-white border-[#e0dad0] text-[#5a5a40]'}`}
                     >
                       Romantic ♥
                     </button>
@@ -474,7 +474,7 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                   <motion.div
                     initial={{ scale: 0.1, opacity: 0 }}
                     animate={{ scale: [0.8, 1.2, 1], opacity: 1 }}
-                    className="text-6xl font-serif-romantic italic font-extrabold text-[#ff85a1] drop-shadow-sm"
+                    className="text-6xl font-serif italic font-extrabold text-[#38bdf8] drop-shadow-sm"
                   >
                     {countdown === 0 ? '📷' : countdown}
                   </motion.div>
@@ -514,9 +514,9 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                 {/* Polaroid Bottom bar details */}
                 <div className="w-full pt-4 pb-2 text-center">
                   <span className="font-mono text-[9px] text-[#5a5a40] uppercase tracking-widest block mb-1 font-bold">
-                    🌿 Photobox Keepsake - {capturedPhoto.timestamp}
+                    🌿 Unique Camera Keepsake - {capturedPhoto.timestamp}
                   </span>
-                  <div className="h-0.5 w-6 bg-[#ff85a1] mx-auto rounded-full" />
+                  <div className="h-0.5 w-6 bg-[#38bdf8] mx-auto rounded-full" />
                 </div>
               </div>
 
@@ -531,13 +531,13 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                   }}
                   className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-white hover:bg-[#faf8f5] text-[#4a4a40] border border-[#e0dad0] rounded-full font-bold text-xs shadow-xs transition-all active:scale-95"
                 >
-                  <RefreshCw className="w-3.5 h-3.5 text-[#ff85a1]" />
+                  <RefreshCw className="w-3.5 h-3.5 text-[#38bdf8]" />
                   Retake Photo
                 </button>
                 <button
                   id="camera-download"
                   onClick={handleDownload}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#ff85a1] hover:bg-[#ff7694] text-white rounded-full font-bold text-xs shadow-md transition-all active:scale-95"
+                  className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#38bdf8] hover:bg-[#0ea5e9] text-white rounded-full font-bold text-xs shadow-md transition-all active:scale-95"
                 >
                   <Download className="w-3.5 h-3.5" />
                   Save Image
@@ -555,7 +555,7 @@ export default function CameraApp({ onBack }: CameraAppProps) {
           {/* Custom Card/Photo Frame caption typography */}
           <div className="space-y-1">
             <label className="text-[10px] uppercase tracking-wider text-[#5a5a40] font-extrabold flex justify-between">
-              <span>Handwritten Card Lettering</span>
+              <span>A LETTER</span>
               <span>{customText.length}/24</span>
             </label>
             <input 
@@ -565,14 +565,14 @@ export default function CameraApp({ onBack }: CameraAppProps) {
               value={customText}
               onChange={(e) => setCustomText(e.target.value)}
               placeholder="e.g. Cay & Cey 2026"
-              className="w-full bg-white border border-[#e0dad0] rounded-xl px-3 py-2 text-xs text-[#4a4a40] placeholder-gray-400 focus:outline-none focus:border-[#ff85a1]"
+              className="w-full bg-white border border-[#e0dad0] rounded-xl px-3 py-2 text-xs text-[#4a4a40] placeholder-gray-400 focus:outline-none focus:border-[#38bdf8]"
             />
           </div>
 
           {/* Frames Selection list row */}
           <div className="space-y-1">
             <span className="text-[10px] uppercase tracking-wider text-[#5a5a40]/90 font-extrabold block">
-              Frame Frame Theme
+              FRAME
             </span>
             <div className="flex gap-2 justify-between">
               {FRAMES.map((f) => (
@@ -580,14 +580,13 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                   key={f.id}
                   id={`frame-${f.id}`}
                   onClick={() => setSelectedFrame(f)}
-                  className={`flex-1 flex flex-col items-center py-2 px-2 rounded-xl text-[10px] font-bold border transition-all ${
+                  className={`flex-1 py-3 px-2 rounded-xl text-[10px] font-bold border transition-all ${
                     selectedFrame.id === f.id
-                      ? 'bg-[#ff85a1]/10 border-[#ff85a1] text-[#ff85a1]'
-                      : 'bg-white border-[#e0dad0] text-[#5a5a40]'
+                      ? 'bg-[#4a4a40] border-[#4a4a40] text-white shadow-xs'
+                      : 'bg-white border-[#e0dad0] text-[#5a5a40] hover:bg-[#5a5a40]/5'
                   }`}
                 >
-                  <span className="text-sm">{f.emoji}</span>
-                  <span className="mt-0.5 truncate max-w-[80px]">{f.name}</span>
+                  <span className="truncate block w-full text-center">{f.name}</span>
                 </button>
               ))}
             </div>
@@ -603,13 +602,13 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                 isCapturing ? 'opacity-80 scale-90' : 'hover:scale-105 active:scale-95'
               }`}
             >
-              <div className="w-13 h-13 bg-[#ff85a1] hover:bg-[#ff7694] rounded-full flex items-center justify-center border-2 border-white shadow-inner">
+              <div className="w-13 h-13 bg-[#38bdf8] hover:bg-[#0ea5e9] rounded-full flex items-center justify-center border-2 border-white shadow-inner">
                 <Camera className="w-5.5 h-5.5 text-white" />
               </div>
 
               {/* Pulsing ring during capture count */}
               {isCapturing && (
-                <div className="absolute inset-0 rounded-full border-4 border-[#ff85a1] animate-ping pointer-events-none" />
+                <div className="absolute inset-0 rounded-full border-4 border-[#38bdf8] animate-ping pointer-events-none" />
               )}
             </button>
           </div>
