@@ -1,0 +1,6 @@
+{
+  "name": "Love Phone Simulator",
+  "description": "A cute romantic phone home screen simulator showing Cay's infinite love for Cey with interactive widgets, a photobox camera, and a custom search engine.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
