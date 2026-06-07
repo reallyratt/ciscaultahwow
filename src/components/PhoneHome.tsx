@@ -53,13 +53,13 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
           <div className="absolute -top-12 -right-12 w-24 h-24 bg-pink-500/5 rounded-full blur-xl" />
           
           <div className="space-y-1">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-[#4a4a40] bg-[#5a5a40]/10 px-2.5 py-0.5 rounded-full border border-[#5a5a40]/15 inline-block">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-700 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200 inline-block">
               {dateStr}
             </span>
-            <h1 className="text-4xl font-extrabold tracking-tight text-[#4a4a40] leading-none pt-2">
+            <h1 className="text-4xl font-extrabold tracking-tight text-zinc-800 leading-none pt-2">
               {time}
             </h1>
-            <p className="text-[12px] font-bold text-[#ff85a1] tracking-wide pt-1 text-center">
+            <p className="text-[12px] font-bold text-sky-500 tracking-wide pt-1 text-center font-sans uppercase tracking-wider">
               Cey, It's your 19th birthday!
             </p>
           </div>
@@ -75,16 +75,15 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
         >
           <div className="flex-1 flex items-center gap-2.5">
             {/* Styled colored Google G letter representing search widget */}
-            <span className="text-[#5a5a40] font-black text-sm select-none">
+            <span className="text-zinc-800 font-black text-sm select-none">
               G
             </span>
             <span className="text-xs text-gray-400 font-medium tracking-tight">
               Type anything to discover...
             </span>
           </div>
-          <div className="flex items-center gap-2 text-[#ff85a1]">
-            <Mic className="w-4 h-4 text-gray-400" />
-            <Heart className="w-4 h-4 text-[#ff85a1] fill-[#ff85a1] animate-pulse" />
+          <div className="flex items-center gap-2 text-sky-400">
+            <Mic className="w-4 h-4 text-zinc-400" />
           </div>
         </motion.div>
 
@@ -100,40 +99,40 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
           id="trigger-all-apps"
           whileTap={{ scale: 0.95 }}
           onClick={onOpenAllApps}
-          className="w-11 h-11 bg-white hover:bg-[#faf8f5] rounded-2xl flex items-center justify-center shadow-sm border border-white/30 cursor-pointer"
+          className="w-11 h-11 bg-white hover:bg-zinc-50 rounded-2xl flex items-center justify-center shadow-sm border border-zinc-200 cursor-pointer"
           title="All Apps"
         >
-          <Grid className="w-5.5 h-5.5 text-[#5a5a40]" />
+          <Grid className="w-5.5 h-5.5 text-zinc-650" />
         </motion.button>
 
-        {/* Camera button */}
+        {/* Camera button (Pastel black and white styling with sky blue camera icon tint or white) */}
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={() => onLaunchApp('camera')}
-          className="w-11 h-11 bg-[#ff85a1] hover:bg-[#ff7694] rounded-2xl flex items-center justify-center shadow-md border border-white/20 cursor-pointer"
+          className="w-11 h-11 bg-zinc-950 hover:bg-zinc-900 rounded-2xl flex items-center justify-center shadow-md border border-white/10 cursor-pointer text-white"
           title="Camera"
         >
-          <Camera className="w-5.5 h-5.5 text-white" />
+          <Camera className="w-5.5 h-5.5 text-sky-300" />
         </motion.button>
 
         {/* Gallery button */}
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={onOpenAllApps}
-          className="w-11 h-11 bg-white hover:bg-[#faf8f5] rounded-2xl flex items-center justify-center shadow-sm border border-white/30 cursor-pointer"
+          className="w-11 h-11 bg-white hover:bg-zinc-50 rounded-2xl flex items-center justify-center shadow-sm border border-zinc-200 cursor-pointer"
           title="Gallery"
         >
-          <Image className="w-5.5 h-5.5 text-[#5a5a40]" />
+          <Image className="w-5.5 h-5.5 text-zinc-650" />
         </motion.button>
 
         {/* Notes button */}
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={onOpenAllApps}
-          className="w-11 h-11 bg-white hover:bg-[#faf8f5] rounded-2xl flex items-center justify-center shadow-sm border border-white/30 cursor-pointer"
+          className="w-11 h-11 bg-white hover:bg-zinc-50 rounded-2xl flex items-center justify-center shadow-sm border border-zinc-200 cursor-pointer"
           title="Notes"
         >
-          <FileText className="w-5.5 h-5.5 text-[#ff85a1]" />
+          <FileText className="w-5.5 h-5.5 text-sky-400" />
         </motion.button>
       </div>
 

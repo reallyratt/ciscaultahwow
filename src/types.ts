@@ -18,4 +18,5 @@ export interface RomanticFrame {
   color: string;
   className: string;
   emoji: string;
+  overlayUrl?: string;
 }

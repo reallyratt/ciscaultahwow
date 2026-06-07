@@ -7,12 +7,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Search, Mic, Camera, ArrowLeft, Heart, Sparkles, 
-  Share2, RefreshCw, Trophy, Music, HelpCircle, Flame 
+  Share2, RefreshCw, Trophy, Music, HelpCircle, Flame
 } from 'lucide-react';
 
 interface GoogleSearchAppProps {
   onBack: () => void;
 }
+
+const CactusIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+    <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+  </svg>
+);
 
 const TARGET_PHRASE = "How much Cay is actually\nlove Cey";
 
@@ -34,6 +49,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
   const [inputValue, setInputValue] = useState<string>('');
   const [luckyFact, setLuckyFact] = useState<string | null>(null);
   const [resultsType, setResultsType] = useState<'search' | 'lucky'>('search');
+  const [showProfileModal, setShowProfileModal] = useState<boolean>(false);
   
   // Custom keystroke interception state
   const targetChars = TARGET_PHRASE.split('');
@@ -66,9 +82,6 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
     if (currentLen < TARGET_PHRASE.length) {
       const nextChar = targetChars[currentLen];
       setInputValue(prev => prev + nextChar);
-    } else {
-      // If fully typed, append tiny romantic sparkles!
-      setInputValue(prev => prev + ' ❤️');
     }
   };
 
@@ -77,9 +90,6 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
   };
 
   const triggerSearch = () => {
-    if (inputValue.trim() === '') {
-      setInputValue(TARGET_PHRASE);
-    }
     setResultsType('search');
     setView('results');
   };
@@ -98,7 +108,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
   };
 
   return (
-    <div className="absolute inset-0 z-40 bg-[#f8f5f0] select-none text-[#4a4a40] font-sans overflow-hidden flex flex-col">
+    <div className="absolute inset-0 z-40 bg-[#f8f5f0] select-none text-[#4a4a40] font-sans overflow-hidden flex flex-col pt-9">
       {/* Search landing or active results */}
       <AnimatePresence mode="wait">
         {view === 'search' ? (
@@ -110,7 +120,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
             exit={{ opacity: 0, scale: 0.98 }}
             className="flex-1 flex flex-col justify-between p-6 overflow-y-auto"
           >
-            {/* Top Bar with back arrow */}
+            {/* Top Bar with back arrow and profile account icon */}
             <div className="flex justify-between items-center h-10 w-full">
               <button 
                 onClick={onBack}
@@ -119,7 +129,15 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
               >
                 <ArrowLeft className="w-5 h-5 text-[#5a5a40] hover:text-[#4a4a40]" />
               </button>
-              <div className="w-9 h-9" />
+              
+              {/* Profile/Account Button */}
+              <button
+                onClick={() => setShowProfileModal(true)}
+                className="w-8 h-8 rounded-full bg-[#38bdf8] hover:bg-[#2563eb] flex items-center justify-center text-white text-xs font-bold cursor-pointer shadow-sm active:scale-95 transition-all"
+                title="Google Account"
+              >
+                C
+              </button>
             </div>
 
             {/* Google Logo & Search Box Panel */}
@@ -138,18 +156,17 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                   <span className="text-[#4285F4]">l</span>
                 </h1>
                 <div className="flex items-center gap-1.5 mt-1.5">
-                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#5a5a40]/85">
-                    Personalized Search Engine
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">
+                    Cey's personalized search engine
                   </span>
-                  <Sparkles className="w-3 h-3 text-[#ff85a1]" />
                 </div>
               </div>
 
               {/* Realistic Input Field bar */}
               <div className="w-full relative">
-                <div className="absolute inset-0 bg-[#ff85a1]/5 rounded-2xl blur-md opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300" />
-                <div className="relative bg-white border border-[#e0dad0] focus-within:border-[#ff85a1] rounded-2xl flex items-start px-4 h-16 shadow-sm transition-all duration-250 py-2">
-                  <Search className="w-4.5 h-4.5 text-[#5a5a40] mr-2.5 flex-shrink-0 mt-1.5" />
+                <div className="absolute inset-0 bg-sky-250/5 rounded-2xl blur-md opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300" />
+                <div className="relative bg-white border border-zinc-200 focus-within:border-sky-450 rounded-2xl flex items-start px-4 h-16 shadow-sm transition-all duration-250 py-2">
+                  <Search className="w-4.5 h-4.5 text-zinc-500 mr-2.5 flex-shrink-0 mt-1.5" />
                   
                   <textarea
                     id="mock-search-input"
@@ -158,12 +175,11 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                     onChange={handleInputChange}
                     placeholder="Ask anything, Cey..."
                     rows={2}
-                    className="flex-1 bg-transparent text-xs text-[#4a4a40] placeholder-gray-400 focus:outline-none resize-none h-full pt-1 leading-snug no-scrollbar font-medium"
+                    className="flex-1 bg-transparent text-xs text-zinc-700 placeholder-zinc-400 focus:outline-none resize-none h-full pt-1 leading-snug no-scrollbar font-medium"
                   />
                   
-                  <div className="flex items-center gap-2 text-gray-450 flex-shrink-0 ml-1 mt-1">
-                    <Mic className="w-4 h-4 text-[#5a5a40]" />
-                    <Camera className="w-4 h-4 text-[#ff85a1]" />
+                  <div className="flex items-center gap-2 text-zinc-450 flex-shrink-0 ml-1 mt-1">
+                    <Mic className="w-4 h-4 text-zinc-500" />
                   </div>
                 </div>
               </div>
@@ -204,20 +220,34 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
             <div className="top-0 sticky bg-white/85 border-b border-[#e0dad0] p-3 flex gap-2.5 items-center z-30 backdrop-blur-md">
               <button
                 id="reset-search"
-                onClick={() => setView('search')}
-                className="p-1 px-2.5 border border-[#e0dad0] hover:bg-[#5a5a40]/5 rounded-full text-xs text-[#5a5a40] hover:text-[#4a4a40] flex items-center gap-1.5 flex-shrink-0 transition-colors"
+                onClick={() => {
+                  if (resultsType === 'lucky') {
+                    setInputValue('');
+                  }
+                  setView('search');
+                }}
+                className="p-2 border border-[#e0dad0] hover:bg-[#5a5a40]/5 rounded-full text-[#5a5a40] hover:text-[#4a4a40] flex items-center justify-center flex-shrink-0 transition-colors"
+                title="Go back"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                Back
+                <ArrowLeft className="w-4 h-4" />
               </button>
               
-              {/* Minimalist results query bar (re-styled to be 2 lines block, no overflow) */}
-              <div className="flex-1 bg-[#f0ebe3] px-3.5 py-1 rounded-xl border border-[#e0dad0]/80 flex items-center gap-2 max-w-[210px] min-h-[40px] justify-start overflow-hidden">
-                <span className="text-[10px] text-[#ff85a1] font-bold flex-shrink-0">G</span>
+              {/* Minimalist results query bar stretching all the way to right */}
+              <div className="flex-1 bg-[#f0ebe3] px-3.5 py-1 rounded-xl border border-[#e0dad0]/80 flex items-center gap-2 min-h-[40px] justify-start overflow-hidden">
+                <span className="text-[10px] text-sky-450 font-bold flex-shrink-0">G</span>
                 <span className="text-[10.5px] text-[#4a4a40] font-medium leading-snug py-0.5 break-words line-clamp-2 select-all whitespace-pre-line overflow-hidden">
                   {inputValue}
                 </span>
               </div>
+
+              {/* Profile/Account Button */}
+              <button
+                onClick={() => setShowProfileModal(true)}
+                className="w-8 h-8 rounded-full bg-[#38bdf8] hover:bg-[#2563eb] flex items-center justify-center text-white text-xs font-bold cursor-pointer shadow-sm active:scale-95 transition-all flex-shrink-0"
+                title="Google Account"
+              >
+                C
+              </button>
             </div>
 
             {/* Scrolling Results Cards Panel */}
@@ -225,7 +255,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
               
               {/* Mini counter summary */}
               <div className="text-[9px] text-[#5a5a40]/90 font-mono tracking-wide">
-                About 7,777,777 results found (0.007 seconds) - 100% matched Cey!
+                About {resultsType === 'lucky' ? '040506' : (inputValue.trim() === '' ? '0' : (inputValue !== TARGET_PHRASE ? '0' : '040506'))} results found (0.007 seconds)
               </div>
 
               {/* GOOGLE'S AI SUMMARY / LUCKY SEARCH CARD PANEL */}
@@ -233,34 +263,33 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                 <motion.div
                   initial={{ scale: 0.96, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="bg-white border border-[#ff85a1]/35 bg-gradient-to-br from-[#ff85a1]/5 via-white to-white rounded-[24px] p-5 shadow-sm overflow-hidden relative"
+                  className="bg-white border border-zinc-200 bg-gradient-to-br from-sky-300/5 via-white to-white rounded-[24px] p-5 shadow-sm overflow-hidden relative"
                 >
                   <div className="absolute top-4.5 right-4.5">
-                    <Sparkles className="w-4 h-4 text-[#ff85a1] animate-pulse" />
+                    <Sparkles className="w-4 h-4 text-sky-450 text-sky-450 animate-pulse" />
                   </div>
 
                   <div className="space-y-3.5">
-                    <div className="flex items-center gap-1.5 text-xs text-[#ff85a1] font-bold uppercase tracking-wider relative">
-                      <div className="w-2 h-2 bg-[#ff85a1] rounded-full animate-ping absolute" />
-                      <div className="w-2 h-2 bg-[#ff85a1] rounded-full mr-1.5 z-10" />
+                    <div className="flex items-center gap-1.5 text-xs text-zinc-700 font-bold uppercase tracking-wider relative">
+                      <div className="w-2 h-2 bg-zinc-950 rounded-full mr-1.5 z-10" />
                       <span>Geolgeol AI Answer</span>
                     </div>
 
                     {/* Highly elegant Display Typography fact presentation */}
-                    <div className="text-sm md:text-base font-medium text-[#4a4a40] tracking-tight leading-relaxed select-text font-serif italic text-left">
+                    <div className="text-sm md:text-base font-medium text-zinc-700 tracking-tight leading-relaxed select-text font-serif italic text-left">
                       {luckyFact}
                     </div>
 
                     {/* Soft separator */}
-                    <div className="border-t border-[#e5dfd4] pt-3.5 flex justify-between items-center">
-                      <span className="text-[9px] text-[#5a5a40]/70 font-mono font-bold">
-                        Verified Couple Log #{(CAY_FACTS.indexOf(luckyFact) + 1)} of {CAY_FACTS.length}
+                    <div className="border-t border-zinc-150 pt-3.5 flex justify-between items-center">
+                      <span className="text-[9px] text-zinc-550 font-mono font-bold">
+                        Verified what's on Cay's mind #{(CAY_FACTS.indexOf(luckyFact) + 1)} of {CAY_FACTS.length}
                       </span>
                       <button
                         onClick={rollNextFact}
-                        className="text-[11px] font-bold text-white bg-[#ff85a1] hover:bg-[#ff7694] px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1 shadow-sm cursor-pointer"
+                        className="text-[11px] font-bold text-sky-500 bg-zinc-950 hover:bg-zinc-900 border border-zinc-900 px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1 shadow-sm cursor-pointer"
                       >
-                        Roll Another Fact 🎲
+                        I'm Feeling Lucky
                       </button>
                     </div>
                   </div>
@@ -269,19 +298,71 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
 
               {resultsType === 'search' && (
                 <>
-                  {/* CARD 1: LINEAR GRAPH - ABSOLUTELY DATA BASED GRAPHIC */}
-                  <motion.div
+                  {inputValue.trim() === '' ? (
+                    /* EMPTY SEARCH CASE (Requirement 4) */
+                    <motion.div
+                      initial={{ scale: 0.96, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="bg-white border border-zinc-200 rounded-[24px] p-8 flex flex-col items-center text-center space-y-4 shadow-sm w-full"
+                    >
+                      <div className="w-14 h-14 bg-zinc-50 rounded-full flex items-center justify-center border border-zinc-200">
+                        <CactusIcon className="w-6 h-6 text-sky-400" />
+                      </div>
+                      <p className="text-xs font-semibold text-zinc-650 max-w-[240px] leading-relaxed">
+                        Theres nothing to discover here... Dead end.
+                      </p>
+                    </motion.div>
+                  ) : inputValue !== TARGET_PHRASE ? (
+                    /* UNFINISHED SEARCH CASE WITH DID YOU MEAN (Requirement 5) */
+                    <div className="space-y-4 w-full">
+                      <motion.div
+                        initial={{ scale: 0.96, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="bg-white border border-zinc-200 rounded-[24px] p-5 text-left flex flex-col gap-1.5 shadow-sm"
+                      >
+                        <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">
+                          Search suggestion
+                        </span>
+                        <div className="text-xs text-zinc-650 font-medium">
+                          Did you mean:{' '}
+                          <button
+                            onClick={() => setInputValue(TARGET_PHRASE)}
+                            className="font-bold text-sky-500 hover:text-sky-600 underline underline-offset-2 transition-colors inline-block cursor-pointer"
+                          >
+                            How much Cay is actually love Cey
+                          </button>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ scale: 0.96, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: 0.1 }}
+                        className="bg-white border border-zinc-200 rounded-[24px] p-8 flex flex-col items-center text-center space-y-4 shadow-sm"
+                      >
+                        <div className="w-14 h-14 bg-zinc-50 rounded-full flex items-center justify-center border border-zinc-200">
+                          <CactusIcon className="w-6 h-6 text-sky-400" />
+                        </div>
+                        <p className="text-xs font-semibold text-zinc-650 max-w-[240px] leading-relaxed">
+                          Theres nothing to discover here... Dead end.
+                        </p>
+                      </motion.div>
+                    </div>
+                  ) : (
+                    <>
+                      {/* CARD 1: LINEAR GRAPH - ABSOLUTELY DATA BASED GRAPHIC */}
+                      <motion.div
                     initial={{ transform: 'translateY(15px)', opacity: 0 }}
                     animate={{ transform: 'translateY(0)', opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-white border border-[#e0dad0] rounded-[24px] p-4 shadow-sm overflow-hidden"
+                    className="bg-white border border-zinc-200 rounded-[24px] p-4 shadow-sm overflow-hidden"
                   >
                 <div className="space-y-1 mb-3">
-                  <h3 className="text-[10px] uppercase tracking-wider text-[#5a5a40]/90 font-bold">
-                    ABSOLUTELY DATA BASED GRAPHIC
+                  <h3 className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">
+                    caypedia.com
                   </h3>
-                  <h2 className="text-sm font-bold text-[#4a4a40] font-serif-romantic italic leading-none pt-0.5">
-                    Cay's Love Metric Data Plot (Oct '24 - Present)
+                  <h2 className="text-sm font-bold text-zinc-800 font-serif-romantic italic leading-none pt-0.5">
+                    Real Graphic of Cay's Love (Up to Date)
                   </h2>
                 </div>
 
@@ -298,7 +379,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
 
                   {/* Left Side Y Axis coordinate numeric values */}
                   <div className="absolute left-1.5 top-2 bottom-8 flex flex-col justify-between items-start text-[8px] font-mono font-bold text-[#5a5a40]/60 pointer-events-none">
-                    <span>999k+</span>
+                    <span>∞</span>
                     <span>100k</span>
                     <span>50k</span>
                     <span>10k</span>
@@ -310,8 +391,8 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                     {/* SVG Gradient Fill under curve */}
                     <defs>
                       <linearGradient id="solid-gradient-area" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#ff85a1" stopOpacity="0.2" />
-                        <stop offset="100%" stopColor="#ff85a1" stopOpacity="0.0" />
+                        <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.2" />
+                        <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.0" />
                       </linearGradient>
                     </defs>
 
@@ -326,7 +407,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                     <motion.path
                       d="M 45,135 L 110,115 L 175,85 L 240,40 L 290,15"
                       fill="none"
-                      stroke="#ff85a1"
+                      stroke="#38bdf8"
                       strokeWidth="3"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -341,22 +422,22 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                       { cx: 110, cy: 115, val: "10k" },
                       { cx: 175, cy: 85, val: "50k" },
                       { cx: 240, cy: 40, val: "100k" },
-                      { cx: 290, cy: 15, val: "999k+" }
+                      { cx: 290, cy: 15, val: "∞" }
                     ].map((pt, index) => (
                       <g key={index}>
-                        <circle cx={pt.cx} cy={pt.cy} r="4" fill="#ff85a1" />
-                        <circle cx={pt.cx} cy={pt.cy} r="7" fill="#ff85a1" className="opacity-20 animate-ping" />
+                        <circle cx={pt.cx} cy={pt.cy} r="4" fill="#38bdf8" />
+                        <circle cx={pt.cx} cy={pt.cy} r="7" fill="#38bdf8" className="opacity-20 animate-ping" />
                       </g>
                     ))}
                   </svg>
 
                   {/* X Axis Time Labels */}
-                  <div className="flex justify-between items-center text-[8px] sm:text-[9px] text-[#5a5a40]/90 font-mono pt-4 select-none px-6 border-t border-[#e0dad0]/30">
+                  <div className="flex justify-between items-center text-[8px] sm:text-[9px] text-[#5a5a40]/90 font-mono pt-4 select-none px-6 border-t border-[#e0dad0]/30 border-zinc-150">
                     <span>Oct '24</span>
                     <span>Dec '24</span>
                     <span>Feb '25</span>
                     <span>Apr '25</span>
-                    <span className="text-[#ff85a1] font-bold">Jun '25</span>
+                    <span className="text-sky-500 font-bold">Jun '25</span>
                   </div>
                 </div>
               </motion.div>
@@ -367,30 +448,26 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                 initial={{ transform: 'translateY(15px)', opacity: 0 }}
                 animate={{ transform: 'translateY(0)', opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white border border-[#e0dad0] rounded-[24px] p-4 shadow-sm overflow-hidden relative"
+                className="bg-white border border-zinc-200 rounded-[24px] p-4 shadow-sm overflow-hidden relative"
               >
                 {/* Header info */}
                 <div className="space-y-1 mb-4">
-                  <h3 className="text-[10px] uppercase tracking-wider text-[#5a5a40]/90 font-bold">
-                    Volumetric Area Diagnostics
+                  <h3 className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">
+                    wikicay.id
                   </h3>
-                  <h2 className="text-sm font-bold text-[#4a4a40] font-serif-romantic italic leading-none pt-0.5">
-                    Cay's Heart Core Partition
+                  <h2 className="text-sm font-bold text-zinc-850 font-serif-romantic italic leading-none pt-0.5">
+                    Cay's heart partition
                   </h2>
                 </div>
 
                 {/* THE PIE CHART - 100% PINK */}
-                <div className="flex flex-col items-center justify-center py-3 bg-[#fcfbfa] border border-[#e0dad0] rounded-xl relative">
-                  
-                  {/* Floating hearts near the pie */}
-                  <div className="absolute top-2 left-6 text-lg animate-pulse">💕</div>
-                  <div className="absolute bottom-4 right-6 text-sm animate-bounce">🌱</div>
+                <div className="flex flex-col items-center justify-center py-3 bg-zinc-50 border border-zinc-200 rounded-xl relative">
 
                   {/* 100% Pink Round Heart-shaped or pulsating perfect circular Pie */}
                   <div className="relative w-32 h-32 flex items-center justify-center">
                     
                     {/* Pulsing glow ring */}
-                    <div className="absolute inset-0 rounded-full bg-[#ff85a1]/10 blur-xl animate-pulse" />
+                    <div className="absolute inset-0 rounded-full bg-sky-200/10 blur-xl animate-pulse" />
                     
                     <motion.svg 
                       viewBox="0 0 100 100" 
@@ -404,7 +481,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                         cx="50"
                         cy="50"
                         r="38"
-                        stroke="#ff85a1"
+                        stroke="#18181b"
                         strokeWidth="11"
                         fill="transparent"
                         strokeDasharray="239"
@@ -415,7 +492,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                         cx="50"
                         cy="50"
                         r="32"
-                        stroke="#ff7a98"
+                        stroke="#38bdf8"
                         strokeWidth="3"
                         fill="transparent"
                         strokeDasharray="201"
@@ -425,22 +502,22 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                     </motion.svg>
 
                     {/* Centered beautiful indicator inside pie ring */}
-                    <div className="absolute inset-4 rounded-full bg-white border border-[#e0dad0] flex flex-col items-center justify-center text-center shadow-inner select-none">
-                      <span className="text-base font-extrabold text-[#ff85a1] tracking-tight leading-none">
+                    <div className="absolute inset-4 rounded-full bg-white border border-zinc-200 flex flex-col items-center justify-center text-center shadow-inner select-none">
+                      <span className="text-base font-extrabold text-zinc-900 tracking-tight leading-none">
                         100%
                       </span>
-                      <span className="text-[7px] text-[#5a5a40]/90 font-extrabold uppercase tracking-widest mt-1">
+                      <span className="text-[7px] text-zinc-500 font-extrabold uppercase tracking-widest mt-1">
                         Cey Content
                       </span>
                     </div>
                   </div>
 
                   {/* Custom Pie Legend Labels */}
-                  <div className="w-full px-5 pt-4.5 flex justify-center text-[11px] border-t border-[#e0dad0]/75 mt-4">
+                  <div className="w-full px-5 pt-4.5 flex justify-center text-[11px] border-t border-zinc-150 mt-4">
                     <div className="flex items-center gap-1.5 justify-center">
-                      <div className="w-2.5 h-2.5 bg-[#ff85a1] rounded-full flex-shrink-0 animate-pulse" />
-                      <span className="text-[#4a4a40] font-bold">
-                        Pink (100%): Cey's Beautiful Presence
+                      <div className="w-2.5 h-2.5 bg-zinc-950 rounded-full flex-shrink-0" />
+                      <span className="text-zinc-700 font-bold">
+                        Black (100%): Cey's Beautiful Presence
                       </span>
                     </div>
                   </div>
@@ -453,15 +530,15 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                 initial={{ transform: 'translateY(15px)', opacity: 0 }}
                 animate={{ transform: 'translateY(0)', opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white border border-[#e0dad0] rounded-[24px] p-4 shadow-sm overflow-hidden relative"
+                className="bg-white border border-zinc-200 rounded-[24px] p-4 shadow-sm overflow-hidden relative"
               >
                 <div className="space-y-1 mb-3">
-                  <h3 className="text-xs uppercase tracking-wider text-[#ff85a1] font-bold flex items-center gap-1">
-                    <Music className="w-3.5 h-3.5 fill-current" />
-                    Cay & Cey Song Link
+                  <h3 className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold flex items-center gap-1">
+                    <Music className="w-3 h-3 text-zinc-500" />
+                    arcayve.net
                   </h3>
-                  <h2 className="text-sm font-bold text-[#4a4a40] font-serif-romantic italic pt-0.5">
-                    Spotify Love Playlist Choice
+                  <h2 className="text-sm font-bold text-zinc-850 font-serif-romantic italic pt-0.5">
+                    Legend... Wait for it... Dary! Playlist!
                   </h2>
                 </div>
 
@@ -481,10 +558,75 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                   />
                 </div>
               </motion.div>
+                    </>
+                  )}
                 </>
               )}
 
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Profile/Account Modal Modal Overlay */}
+      <AnimatePresence>
+        {showProfileModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-[#000000]/40 backdrop-blur-xs flex items-center justify-center p-6 z-[60] select-none rounded-[36px]"
+            onClick={() => setShowProfileModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              className="bg-[#fcfaf7] border border-[#e0dad0] rounded-[28px] w-full max-w-[280px] p-6 shadow-xl relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Outer decorative details */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#38bdf8]" />
+
+              <div className="flex flex-col items-center text-center space-y-4">
+                
+                {/* Close Button */}
+                <button
+                  onClick={() => setShowProfileModal(false)}
+                  className="absolute top-4 right-4 text-xs font-bold text-[#5a5a40]/70 hover:text-[#4a4a40] bg-[#f0ebe3] hover:bg-[#e0dad0] rounded-full w-6 h-6 flex items-center justify-center transition-colors cursor-pointer"
+                >
+                  ✕
+                </button>
+
+                <div className="pt-2 text-[10px] uppercase font-extrabold tracking-widest text-[#5a5a40]/70">
+                  Geolgeol Account
+                </div>
+
+                {/* Big single blue Avatar */}
+                <div className="w-16 h-16 rounded-full bg-[#38bdf8] flex items-center justify-center text-white text-xl font-bold font-serif shadow-md">
+                  C
+                </div>
+
+                {/* Name & Contact Email */}
+                <div>
+                  <h3 className="text-sm font-bold text-[#4a4a40]">Franciska Sayangku Cintaku</h3>
+                  <p className="text-[10px] text-[#5a5a40]/70 font-mono">cey.precious@elove.cay</p>
+                </div>
+
+                {/* Heartwarming Statement exactly as specified */}
+                <div className="bg-[#f5f2eb]/80 border border-[#e0dad0]/60 rounded-2xl p-4 text-xs text-[#4a4a40] font-semibold leading-relaxed italic relative">
+                  "This account belong to Cey, the most precious being I've ever met"
+                </div>
+
+                <button
+                  onClick={() => setShowProfileModal(false)}
+                  className="w-full py-2.5 bg-[#4a4a40] hover:bg-[#3d3d33] text-[#f8f5f0] rounded-full text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
+                >
+                  Close Account Info
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

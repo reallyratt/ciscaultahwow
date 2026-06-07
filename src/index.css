@@ -7,10 +7,33 @@
   --font-serif: "Playfair Display", "Georgia", "Times New Roman", serif;
   --font-mono: "JetBrains Mono", monospace;
   
-  --color-natural-bg: #f8f5f0;
-  --color-natural-text: #4a4a40;
-  --color-natural-sage: #5a5a40;
-  --color-natural-pink: #ff85a1;
+  --color-natural-bg: #eef4f8;
+  --color-natural-text: #222d35;
+  --color-natural-sage: #445663;
+  --color-natural-pink: #ec4899;
+
+  /* Premium pastel off-white & blended charcoal-black, saturated with sky/blue pastel */
+  --color-white: #f5f8fa;
+  --color-black: #111a20;
+
+  /* Soft sky-tinted grey palette (zinc scale override) */
+  --color-zinc-50: #f5f8fa;
+  --color-zinc-100: #eaf0f4;
+  --color-zinc-250: #cfdbe3;
+  --color-zinc-200: #dae3e9;
+  --color-zinc-300: #bfced8;
+  --color-zinc-450: #819cb0;
+  --color-zinc-400: #9cb1bf;
+  --color-zinc-500: #6d8899;
+  --color-zinc-550: #5d7585;
+  --color-zinc-650: #4a5d6a;
+  --color-zinc-600: #556c7c;
+  --color-zinc-700: #3f515d;
+  --color-zinc-800: #29363f;
+  --color-zinc-805: #212c33;
+  --color-zinc-850: #1d262d;
+  --color-zinc-900: #161e23;
+  --color-zinc-950: #111a20;
 }
 
 body {

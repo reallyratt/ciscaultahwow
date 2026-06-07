@@ -20,24 +20,68 @@ const FRAMES: RomanticFrame[] = [
     id: 'polaroid',
     name: 'Classic Polaroid 📸',
     color: 'bg-white',
-    className: 'border-white border-b-[54px] border-t-8 border-x-8 rounded-sm shadow-xl',
+    className: '',
     emoji: '💝'
   },
   {
     id: 'neon-glow',
     name: 'Cyber Hearts 💖',
     color: 'bg-neutral-900',
-    className: 'border-pink-500 border-8 rounded-2xl shadow-[0_0_20px_rgba(244,63,94,0.6)]',
+    className: '',
     emoji: '⚡'
   },
   {
     id: 'photobooth-strip',
     name: 'Love Ribbon 🎀',
-    color: 'bg-rose-50 border-rose-200 border-4',
-    className: 'border-double border-8 rounded-3xl',
+    color: 'bg-rose-50',
+    className: '',
     emoji: '🌹'
   }
 ];
+
+const getOverlayUrl = (frameId: string, text: string) => {
+  // Replace these dynamic data-URIs with your real transparent PNG URLs in the future!
+  if (frameId === 'polaroid') {
+    const escapedText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' width='500' height='500'>
+        <rect x='0' y='0' width='500' height='500' fill='none' stroke='#ffffff' stroke-width='32'/>
+        <rect x='0' y='410' width='500' height='90' fill='#ffffff'/>
+        <text x='250' y='458' font-family='Georgia, serif' font-weight='900' font-size='22' fill='#333333' text-anchor='middle'>${escapedText || 'OUR KEEPSAKE'}</text>
+        <text x='440' y='465' font-family='sans-serif' font-size='22'>💖</text>
+      </svg>
+    `;
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg.trim());
+  } else if (frameId === 'neon-glow') {
+    const escapedText = text.toUpperCase().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' width='500' height='500'>
+        <rect x='10' y='10' width='480' height='480' rx='28' ry='28' fill='none' stroke='#e11d48' stroke-width='14'/>
+        <rect x='22' y='22' width='456' height='456' rx='20' ry='20' fill='none' stroke='#06b6d4' stroke-width='4' opacity='0.85'/>
+        <text x='250' y='465' font-family='monospace' font-weight='bold' font-size='16' fill='#ffffff' text-anchor='middle' letter-spacing='2'>⚡ ${escapedText || 'CEY ♥ CAY'} ⚡</text>
+        <text x='48' y='65' font-family='sans-serif' font-size='32' text-anchor='middle'>💖</text>
+        <text x='452' y='65' font-family='sans-serif' font-size='32' text-anchor='middle'>💖</text>
+        <text x='48' y='462' font-family='sans-serif' font-size='24' text-anchor='middle'>✨</text>
+        <text x='452' y='462' font-family='sans-serif' font-size='24' text-anchor='middle'>✨</text>
+      </svg>
+    `;
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg.trim());
+  } else {
+    const escapedText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500' width='500' height='500'>
+        <rect x='10' y='10' width='480' height='480' rx='16' ry='16' fill='none' stroke='#ffe4e6' stroke-width='16'/>
+        <rect x='24' y='24' width='452' height='452' rx='8' ry='8' fill='none' stroke='#f43f5e' stroke-width='4' stroke-dasharray='10,6'/>
+        <text x='250' y='465' font-family='Georgia, serif' font-style='italic' font-weight='bold' font-size='18' fill='#e11d48' text-anchor='middle'>★ ${escapedText || 'Cay &amp; Cey Forever'} ★</text>
+        <text x='48' y='65' font-family='sans-serif' font-size='34' text-anchor='middle'>🌹</text>
+        <text x='452' y='65' font-family='sans-serif' font-size='34' text-anchor='middle'>🎀</text>
+        <text x='48' y='460' font-family='sans-serif' font-size='26' text-anchor='middle'>🧸</text>
+        <text x='452' y='460' font-family='sans-serif' font-size='26' text-anchor='middle'>🍓</text>
+      </svg>
+    `;
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg.trim());
+  }
+};
 
 export default function CameraApp({ onBack }: CameraAppProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -66,13 +110,20 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
+      // Use ideal resolution parameters for flawless mobile device browser loading
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: 480, height: 480 },
+        video: { 
+          facingMode: { ideal: 'user' },
+          width: { ideal: 640 },
+          height: { ideal: 640 }
+        },
         audio: false
       });
       setStream(mediaStream);
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
+        // Kickoff video stream playing instantly
+        videoRef.current.play().catch(e => console.log('Video autoplay play block:', e));
       }
       setCameraActive(true);
     } catch (err: any) {
@@ -249,92 +300,10 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       ctx.restore();
     }
 
-    // Apply romantic frames in Canvas context!
-    ctx.save();
-    if (selectedFrame.id === 'polaroid') {
-      // Draw a classic Polaroid look inside
-      // Let's create an overlapping overlay. In polaroid canvas, card is white block
-      // But we captured the center scene. Let's make a mini polaroid within
-      // Actually we can composite it or draw borders:
-      // A thick white border on outer edges
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 16;
-      ctx.strokeRect(8, 8, size - 16, size - 16);
-      
-      // Bottom banner area for handwritten text
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, size - 120, size, 120);
-
-      // Handwritten romantic caption
-      ctx.fillStyle = '#0f172a'; // dark-indigo
-      ctx.font = 'bold 36px Georgia, serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(customText, size / 2, size - 60);
-
-      // Mini heart stamps
-      ctx.fillStyle = '#f43f5e';
-      ctx.font = '28px sans-serif';
-      ctx.fillText('✨ 💕', size * 0.88, size - 60);
-    } else if (selectedFrame.id === 'neon-glow') {
-      // Neon frames
-      ctx.strokeStyle = '#000000';
-      ctx.lineWidth = 14;
-      ctx.strokeRect(7, 7, size - 14, size - 14);
-
-      // Neon-pink outer line
-      ctx.strokeStyle = '#ec4899'; // pink-500
-      ctx.lineWidth = 16;
-      ctx.strokeRect(22, 22, size - 44, size - 44);
-
-      // Neon-cyan secondary line
-      ctx.strokeStyle = '#06b6d4'; // cyan-500
-      ctx.lineWidth = 4;
-      ctx.strokeRect(32, 32, size - 64, size - 64);
-
-      // Add cute corners stickers
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '40px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('💖', 60, 70);
-      ctx.fillText('💖', size - 60, 70);
-      ctx.fillText('⚡', 60, size - 60);
-      ctx.fillText('⚡', size - 60, size - 60);
-
-      // Custom tag text
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 24px monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(`⚡ ${customText.toUpperCase()} ⚡`, size / 2, size - 50);
-    } else {
-      // Ribbon / Booth Frame
-      ctx.strokeStyle = '#fbcfe8'; // pink-200
-      ctx.lineWidth = 24;
-      ctx.strokeRect(12, 12, size - 24, size - 24);
-
-      ctx.strokeStyle = '#fda4af'; // rose-300
-      ctx.lineWidth = 6;
-      ctx.strokeRect(30, 30, size - 60, size - 60);
-
-      // Double line border styling
-      ctx.strokeStyle = '#f43f5e'; // rose-500
-      ctx.lineWidth = 3;
-      ctx.strokeRect(40, 40, size - 80, size - 80);
-
-      // Floating stickers
-      ctx.font = '36px Arial';
-      ctx.fillText('🌹', 70, 80);
-      ctx.fillText('🧸', size - 70, 80);
-      ctx.fillText('🎀', 70, size - 70);
-      ctx.fillText('🍓', size - 70, size - 70);
-
-      ctx.fillStyle = '#f43f5e';
-      ctx.font = 'italic bold 28px Georgia, serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(`★ ${customText} ★`, size / 2, size - 50);
-    }
-    ctx.restore();
-
-    setTimeout(() => {
+    // Apply transparent PNG overlay frame onto Canvas directly
+    const frameImg = new Image();
+    frameImg.crossOrigin = "anonymous";
+    const finalizeCapture = () => {
       setFlashActive(false);
       const dataUrl = canvas.toDataURL('image/png');
       const now = new Date();
@@ -346,7 +315,22 @@ export default function CameraApp({ onBack }: CameraAppProps) {
       });
       setIsCapturing(false);
       setCountdown(null);
-    }, 450);
+    };
+
+    frameImg.onload = () => {
+      ctx.drawImage(frameImg, 0, 0, size, size);
+      finalizeCapture();
+    };
+
+    frameImg.onerror = (e) => {
+      console.warn("Error loading frame overlay, drawing default fallback borders", e);
+      ctx.strokeStyle = '#ff85a1';
+      ctx.lineWidth = 14;
+      ctx.strokeRect(7, 7, size - 14, size - 14);
+      finalizeCapture();
+    };
+
+    frameImg.src = getOverlayUrl(selectedFrame.id, customText);
   };
 
   const handleDownload = () => {
@@ -360,7 +344,7 @@ export default function CameraApp({ onBack }: CameraAppProps) {
   };
 
   return (
-    <div className="absolute inset-0 z-40 bg-[#f5f2eb] flex flex-col overflow-hidden select-none">
+    <div className="absolute inset-0 z-40 bg-[#f5f2eb] flex flex-col overflow-hidden select-none pt-9">
       
       {/* Invisible Canvas for rendering full image */}
       <canvas ref={canvasRef} className="hidden" />
@@ -466,28 +450,14 @@ export default function CameraApp({ onBack }: CameraAppProps) {
                 </div>
               )}
 
-              {/* Physical Frame Overlay (applied live on preview) */}
-              <div className={`absolute inset-0 pointer-events-none flex flex-col justify-between ${
-                selectedFrame.id === 'polaroid' ? 'border-white border-b-[28px] border-t-4 border-x-4 shadow-sm' :
-                selectedFrame.id === 'neon-glow' ? 'border-[#ff85a1] border-4 shadow-[inset_0_0_12px_rgba(255,133,161,0.2)]' :
-                'border-semibold border-[10px] border-[#e0dad0]'
-              }`}>
-                {/* Heart details/watermarks based on selected frames */}
-                <div className="absolute top-2 left-2 z-20 pointer-events-none drop-shadow">
-                  {selectedFrame.emoji}
-                </div>
-                <div className="absolute top-2 right-2 z-20 pointer-events-none drop-shadow">
-                  {selectedFrame.emoji}
-                </div>
-                
-                {/* Simulated text strip at polaroid bottom inside preview */}
-                {selectedFrame.id === 'polaroid' && (
-                  <div className="absolute bottom-[-24px] left-0 right-0 text-center font-sans">
-                    <span className="text-[8px] font-bold text-neutral-800 truncate block px-3">
-                      {customText}
-                    </span>
-                  </div>
-                )}
+              {/* Physical Frame Overlay (applied live on preview using SVG/PNG data overlays) */}
+              <div className="absolute inset-0 pointer-events-none z-20">
+                <img 
+                  src={getOverlayUrl(selectedFrame.id, customText)}
+                  alt="Frame selection" 
+                  className="w-full h-full object-fill absolute inset-0"
+                  referrerPolicy="no-referrer"
+                />
               </div>
 
               {/* Countdown overlay indicator */}
