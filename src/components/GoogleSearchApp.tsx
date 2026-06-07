@@ -148,7 +148,7 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
               {/* Realistic Input Field bar */}
               <div className="w-full relative">
                 <div className="absolute inset-0 bg-[#ff85a1]/5 rounded-2xl blur-md opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300" />
-                <div className="relative bg-white/30 backdrop-blur-xl border border-white/45 focus-within:border-[#ff85a1] rounded-2xl flex items-start px-4 h-16 shadow-md transition-all duration-250 py-2">
+                <div className="relative bg-white border border-[#e0dad0] focus-within:border-[#ff85a1] rounded-2xl flex items-start px-4 h-16 shadow-sm transition-all duration-250 py-2">
                   <Search className="w-4.5 h-4.5 text-[#5a5a40] mr-2.5 flex-shrink-0 mt-1.5" />
                   
                   <textarea
@@ -173,14 +173,14 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                 <button
                   id="submit-google-search"
                   onClick={triggerSearch}
-                  className="px-4 py-2 bg-white/35 hover:bg-white/50 text-[#5a5a40]/90 border border-white/50 rounded-lg text-xs font-semibold shadow-xs transition-all backdrop-blur-md cursor-pointer"
+                  className="px-4 py-2 bg-white hover:bg-[#faf8f5] text-[#5a5a40]/90 border border-[#e0dad0] rounded-lg text-xs font-semibold shadow-xs transition-all cursor-pointer"
                 >
                   Google Search
                 </button>
                 <button
                   id="submit-feeling-lucky"
                   onClick={triggerFeelingLucky}
-                  className="px-4 py-2 bg-white/35 hover:bg-white/50 text-[#5a5a40]/90 border border-white/50 rounded-lg text-xs font-semibold shadow-xs transition-all backdrop-blur-md cursor-pointer"
+                  className="px-4 py-2 bg-white hover:bg-[#faf8f5] text-[#5a5a40]/90 border border-[#e0dad0] rounded-lg text-xs font-semibold shadow-xs transition-all cursor-pointer"
                 >
                   I'm Feeling Lucky
                 </button>
@@ -201,20 +201,20 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
             className="flex-1 flex flex-col h-full bg-[#faf8f5] text-[#4a4a40] overflow-y-auto no-scrollbar"
           >
             {/* Top Sticky Header bar */}
-            <div className="top-0 sticky bg-white/55 border-b border-white/25 p-3 flex gap-2.5 items-center z-30 backdrop-blur-md">
+            <div className="top-0 sticky bg-white/85 border-b border-[#e0dad0] p-3 flex gap-2.5 items-center z-30 backdrop-blur-md">
               <button
                 id="reset-search"
                 onClick={() => setView('search')}
-                className="p-1 px-2.5 border border-[#e0dad0] hover:bg-white/45 rounded-full text-xs text-[#5a5a40] hover:text-[#4a4a40] flex items-center gap-1.5 flex-shrink-0 transition-colors"
+                className="p-1 px-2.5 border border-[#e0dad0] hover:bg-[#5a5a40]/5 rounded-full text-xs text-[#5a5a40] hover:text-[#4a4a40] flex items-center gap-1.5 flex-shrink-0 transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 Back
               </button>
               
-              {/* Minimalist results query bar (re-styled to be 2 lines block, no overflow) - Liquid glass */}
-              <div className="flex-1 bg-white/40 backdrop-blur-md px-3.5 py-1 rounded-xl border border-white/50 flex items-center gap-2 max-w-[210px] min-h-[40px] justify-start overflow-hidden">
+              {/* Minimalist results query bar (re-styled to be 2 lines block, no overflow) */}
+              <div className="flex-1 bg-[#f0ebe3] px-3.5 py-1 rounded-xl border border-[#e0dad0]/80 flex items-center gap-2 max-w-[210px] min-h-[40px] justify-start overflow-hidden">
                 <span className="text-[10px] text-[#ff85a1] font-bold flex-shrink-0">G</span>
-                <span className="text-[10.5px] text-[#4a4a40] font-semibold leading-snug py-0.5 break-words line-clamp-2 select-all whitespace-pre-line overflow-hidden">
+                <span className="text-[10.5px] text-[#4a4a40] font-medium leading-snug py-0.5 break-words line-clamp-2 select-all whitespace-pre-line overflow-hidden">
                   {inputValue}
                 </span>
               </div>
