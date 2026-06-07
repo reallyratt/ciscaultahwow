@@ -668,13 +668,6 @@ export default function GoogleSearchApp({ onBack }: GoogleSearchAppProps) {
                 <div className="bg-[#f5f2eb]/80 border border-[#e0dad0]/60 rounded-2xl p-4 text-xs text-[#4a4a40] font-semibold leading-relaxed italic relative">
                   "This account belong to Cey, the most precious being I've ever met"
                 </div>
-
-                <button
-                  onClick={() => setShowProfileModal(false)}
-                  className="w-full py-2.5 bg-[#4a4a40] hover:bg-[#3d3d33] text-[#f8f5f0] rounded-full text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
-                >
-                  Close Account Info
-                </button>
               </div>
             </motion.div>
           </motion.div>

@@ -15,6 +15,7 @@ import CameraApp from './components/CameraApp';
 import GoogleSearchApp from './components/GoogleSearchApp';
 import AllAppsModal from './components/AllAppsModal';
 import NotesApp from './components/NotesApp';
+import GalleryApp from './components/GalleryApp';
 
 export default function App() {
   const [activeView, setActiveView] = useState<AppView>('home');
@@ -129,6 +130,19 @@ export default function App() {
                 className="absolute inset-0"
               >
                 <NotesApp onBack={() => setActiveView('home')} />
+              </motion.div>
+            )}
+
+            {activeView === 'gallery' && (
+              <motion.div
+                key="gallery-app"
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                transition={{ type: 'spring', damping: 28, stiffness: 220 }}
+                className="absolute inset-0"
+              >
+                <GalleryApp onBack={() => setActiveView('home')} />
               </motion.div>
             )}
 

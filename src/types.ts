@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type AppView = 'home' | 'camera' | 'search' | 'search-results' | 'notes';
+export type AppView = 'home' | 'camera' | 'search' | 'search-results' | 'notes' | 'gallery';
 
 export interface PhotoCapture {
   id: string;

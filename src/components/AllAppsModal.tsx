@@ -99,27 +99,12 @@ export default function AllAppsModal({ isOpen, onClose }: AllAppsModalProps) {
               </div>
             </div>
 
-            {/* Footer Timer with linear countdown bar */}
-            <div className="mt-5 space-y-2">
-              <div className="flex justify-between items-center text-[10px] text-zinc-500">
-                <span className="flex items-center gap-1 font-medium">
-                  <Heart className="w-3 h-3 text-sky-400 fill-sky-400 animate-pulse" />
-                  Infinite Connection
-                </span>
-                <span className="font-mono font-bold text-zinc-800">
-                  Closing in {timeLeft}s
-                </span>
-              </div>
-              
-              {/* Animated progress bar */}
-              <div className="w-full h-1 bg-zinc-200 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: '100%' }}
-                  animate={{ width: `${(timeLeft / INITIAL_SECONDS) * 100}%` }}
-                  transition={{ duration: 1, ease: 'linear' }}
-                  className="h-full bg-zinc-950"
-                />
-              </div>
+            {/* Footer space/decorative element instead of visible timer */}
+            <div className="mt-4 flex justify-center text-[10px] text-zinc-500">
+              <span className="flex items-center gap-1 font-medium select-none">
+                <Heart className="w-3 h-3 text-sky-400 fill-sky-400 animate-pulse animate-duration-1000" />
+                Infinite Connection
+              </span>
             </div>
           </motion.div>
         </div>

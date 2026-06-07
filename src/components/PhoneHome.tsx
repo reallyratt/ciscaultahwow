@@ -60,7 +60,7 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
               {time}
             </h1>
             <p className="text-[12px] font-bold text-sky-500 tracking-wide pt-1 text-center font-sans uppercase tracking-wider">
-              Cey, It's your 19th birthday!
+              Cey, It's your 20th birthday!
             </p>
           </div>
         </motion.div>
@@ -118,7 +118,7 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
         {/* Gallery button */}
         <motion.button
           whileTap={{ scale: 0.95 }}
-          onClick={onOpenAllApps}
+          onClick={() => onLaunchApp('gallery')}
           className="w-11 h-11 bg-white hover:bg-zinc-50 rounded-2xl flex items-center justify-center shadow-sm border border-zinc-200 cursor-pointer"
           title="Gallery"
         >

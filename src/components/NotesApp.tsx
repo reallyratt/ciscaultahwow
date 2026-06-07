@@ -22,37 +22,38 @@ interface NotesAppProps {
 export default function NotesApp({ onBack }: NotesAppProps) {
   const [notes, setNotes] = useState<Note[]>(() => {
     const saved = localStorage.getItem('loveos_notes');
+    const defaultBirthdayNote: Note = {
+      id: 'pinned-hbd',
+      title: 'A Message for Cey!',
+      content: "Aye! Cisca is turning 20?! U know... It takes such a great energy, especially it's u we're talking about... The one that has been shaken, crunched by the world over and over again. But the way u stood up and not giving up? That's MC energy, Cey... I am suuppeerrr proud of u for living this life this far.\n\nNow I wanted to say, may God bless u, bless us this year, so that your life would be easier. That way u can be more happy, be more... Relaxed.\n\nI wished for everything good, positive for u to lay on this year!\n\nAnd no matter what happened I'll always be here, with u. The woman that groomed me.",
+      lastModified: Date.now(),
+      isPinned: true
+    };
+
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        // Ensure the pinned HBD is always present
+        // Ensure the pinned HBD is always present with the upgraded text
         const hasPinnedHbd = parsed.some((n: Note) => n.id === 'pinned-hbd');
         if (!hasPinnedHbd) {
-          return [
-            {
-              id: 'pinned-hbd',
-              title: 'HBD',
-              content: 'selamat ulang tahun',
-              lastModified: Date.now(),
-              isPinned: true
-            },
-            ...parsed
-          ];
+          return [defaultBirthdayNote, ...parsed];
         }
-        return parsed;
+        // Upgrade existing old template pinned note to this custom beautiful text
+        return parsed.map((n: Note) => {
+          if (n.id === 'pinned-hbd') {
+            return {
+              ...n,
+              title: defaultBirthdayNote.title,
+              content: defaultBirthdayNote.content
+            };
+          }
+          return n;
+        });
       } catch (e) {
         // Fallback below
       }
     }
-    return [
-      {
-        id: 'pinned-hbd',
-        title: 'HBD',
-        content: 'selamat ulang tahun',
-        lastModified: Date.now(),
-        isPinned: true
-      }
-    ];
+    return [defaultBirthdayNote];
   });
 
   const [activeNoteId, setActiveNoteId] = useState<string | null>(null);

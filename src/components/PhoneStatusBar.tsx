@@ -371,7 +371,7 @@ export default function PhoneStatusBar({ activeView }: PhoneStatusBarProps) {
                     </h4>
                     
                     <p className="text-[10.5px] leading-relaxed text-zinc-650 font-medium select-text break-words pr-2">
-                      "Hi Sayangku Cintaku Happy 19th freaking birthday!!! You're gettin' old and atp is grooming me once again XD"
+                      "Hi Sayangku Cintaku Happy 20th freaking birthday!!! You're gettin' old and atp is grooming me once again XD"
                     </p>
                   </div>
                 </div>
