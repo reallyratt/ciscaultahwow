@@ -47,7 +47,7 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative w-full bg-white/55 backdrop-blur-md rounded-[24px] p-4.5 border border-white/60 text-center shadow-md overflow-hidden"
+          className="relative w-full bg-white/30 backdrop-blur-xl rounded-[24px] p-4.5 border border-white/45 text-center shadow-[0_8px_32px_0_rgba(255,133,161,0.06)] overflow-hidden"
         >
           {/* Animated decorative sparks within widget */}
           <div className="absolute -top-12 -right-12 w-24 h-24 bg-pink-500/5 rounded-full blur-xl" />
@@ -72,7 +72,7 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           onClick={() => onLaunchApp('search')}
-          className="w-full bg-white shadow-md hover:shadow-lg hover:bg-white/95 rounded-full flex items-center px-4.5 h-12 border border-white/50 cursor-pointer transition-all duration-200 hover:scale-[1.01]"
+          className="w-full bg-white/30 backdrop-blur-xl shadow-md hover:shadow-lg hover:bg-white/40 rounded-full flex items-center px-4.5 h-12 border border-white/45 cursor-pointer transition-all duration-200 hover:scale-[1.01]"
         >
           <div className="flex-1 flex items-center gap-2.5">
             {/* Styled colored Google G letter representing search widget */}
@@ -92,7 +92,7 @@ export default function PhoneHome({ onLaunchApp, onOpenAllApps }: PhoneHomeProps
       </div>
 
       {/* Bottom fixed launcher dock representing All Apps, Camera, Gallery, Notes */}
-      <div className="bg-white/40 backdrop-blur-md border border-white/60 rounded-[28px] px-5 py-3 flex justify-between items-center gap-3 mt-auto shadow-md relative">
+      <div className="bg-white/20 backdrop-blur-xl border border-white/45 rounded-[28px] px-5 py-3 flex justify-between items-center gap-3 mt-auto shadow-[0_8px_32px_0_rgba(255,133,161,0.08)] relative">
         {/* Floating background blur inside dock */}
         <div className="absolute inset-0 rounded-[28px] bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
 

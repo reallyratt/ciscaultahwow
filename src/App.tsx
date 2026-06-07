@@ -32,11 +32,23 @@ export default function App() {
   return (
     <div className="min-h-screen w-full bg-[#f8f5f0] flex flex-col items-center justify-center p-0 select-none">
       
-      {/* Device Screen Background Wallpaper with soft romantic Natural Tones gradient */}
+      {/* Smartphone frame viewport container */}
       <div className="w-full max-w-md h-[100dvh] bg-black overflow-hidden relative flex flex-col shadow-none">
         
-        {/* Device Screen Background Wallpaper with soft romantic Natural Tones gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#ffefef] to-[#f5f5f0] z-0" />
+        {/* Beautiful high-quality blurred stock romantic wallpaper background */}
+        <div className="absolute inset-0 z-0 overflow-hidden scale-105">
+          <img
+            src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1080&q=80"
+            alt="Dreamy Warm Sunset Sky Wallpaper"
+            className="w-full h-full object-cover blur-sm brightness-95"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+
+        {/* ALWAYS-ON TOP NOTIFICATION BAR (No Clock) - Liquid Glass styled */}
+        <div className="relative z-50 bg-white/20 backdrop-blur-md border-b border-white/30">
+          <PhoneStatusBar />
+        </div>
         
         {/* Dynamic floating sparkles in wallpaper */}
         {activeView === 'home' && (

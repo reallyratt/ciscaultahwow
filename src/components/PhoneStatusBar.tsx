@@ -24,10 +24,11 @@ export default function PhoneStatusBar() {
 
   return (
     <div className="flex justify-between items-center px-6 py-2 text-[#4a4a40]/90 text-xs font-semibold select-none tracking-tight z-50">
-      {/* Time Display */}
-      <div className="flex items-center gap-1">
-        <span>{time}</span>
+      {/* Notifications / Operator Info (No Clock!) */}
+      <div className="flex items-center gap-1.5 text-[10px] tracking-wide font-bold uppercase text-[#4a4a40]/90">
+        <span>Geolgeol LTE</span>
         <Heart className="w-3 h-3 text-[#ff85a1] fill-[#ff85a1] animate-pulse" />
+        <span className="w-1.5 h-1.5 bg-[#ff85a1] rounded-full animate-ping ml-0.5" />
       </div>
 
       {/* Dynamic Notch/Island Spacer */}
